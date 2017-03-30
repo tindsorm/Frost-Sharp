@@ -1,0 +1,135 @@
+﻿<Window x:Class="Frost_Sharp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Frost_Sharp"
+        xmlns:local.Utils="clr-namespace:Frost_Sharp.Utils"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Frost-Sharp"
+        Height="350" Width="525"
+        WindowStyle="ThreeDBorderWindow"
+        WindowState="Maximized"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="Images/icon.ico">
+    <Window.Resources>
+        <local.Utils:BytesConverter x:Key="BytesConverter" />
+    </Window.Resources>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        <Menu Height="24" Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" x:Name="Menu_File_Exit" Click="Menu_File_Exit_Click" />
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Preferences" InputGestureText="Ctrl+P" Click="Menu_Tools_Preferences_Click"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Grid.Row="1" Height="24" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Orientation="Horizontal">
+            <TextBlock Margin="5,0,0,0">Toolbar buttons go here</TextBlock>
+        </StackPanel>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" x:Name="MainFrame">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="100" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" MinWidth="300" />
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" x:Name="treeView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" BorderThickness="0" />
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowsPreview="True" DragCompleted="BoardTree_GridSplitter_DragCompleted"/>
+            <Grid Grid.Column="2" HorizontalAlignment="Stretch" Name="MessageGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MinHeight="100"/>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="*" MinHeight="100"/>
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" x:Name="MessageList" SelectionChanged="MessageList_SelectionChanged" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Subject" Width="400" DisplayMemberBinding="{Binding Subject}"/>
+                            <GridViewColumn Header="Sender" Width="300" DisplayMemberBinding="{Binding Sender}"/>
+                            <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowsPreview="True" Height="5" Width="Auto" DragCompleted="MessageGrid_GridSplitter_DragCompleted" />
+                <Grid Grid.Row="2" x:Name="MessagePane">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" MaxHeight="200"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Visibility="Collapsed" Name="MessageHeaderContainer" Padding="2">
+                        <StackPanel Name="MessageHeader">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="0,0,10,0" />
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="IsReadOnly" Value="True" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>From:</TextBlock>
+                                <TextBox Name="MessageHeaderFrom" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Subject:</TextBlock>
+                                <TextBox Name="MessageHeaderSubject" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <TextBox Grid.Row="1" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" Name="MessageBody" VerticalScrollBarVisibility="Auto">
+                        <TextBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="ApplicationCommands.Cut" />
+                                <MenuItem Command="ApplicationCommands.Copy" />
+                                <MenuItem Command="ApplicationCommands.Paste" />
+                                <MenuItem Command="ApplicationCommands.SelectAll" />
+                            </ContextMenu>
+                        </TextBox.ContextMenu>
+                    </TextBox>
+                    <Grid Name="MessageAttachmentsPane" Grid.Row="2" Visibility="Collapsed" MinHeight="150">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" MinHeight="75"/>
+                            <RowDefinition Height="*" MinHeight="75"/>
+                        </Grid.RowDefinitions>
+                        <ListView Grid.Row="0" x:Name="MessageAttachmentsFiles" Visibility="Collapsed" BorderThickness="0, 1, 0, 0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Size" Width="100" DisplayMemberBinding="{Binding Size, Converter={StaticResource BytesConverter}}"/>
+                                    <GridViewColumn Header="Key" Width="250" DisplayMemberBinding="{Binding PublicKey}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <ListView Grid.Row="1" x:Name="MessageAttachmentsBoards" Visibility="Collapsed" BorderThickness="0, 1, 0, 0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Access" Width="Auto" DisplayMemberBinding="{Binding Access}"/>
+                                    <GridViewColumn Header="Description" Width="250" DisplayMemberBinding="{Binding Description}"/>
+                                    <!--
+                                    <GridViewColumn Header="Public Key" Width="100" DisplayMemberBinding="{Binding PublicKey}"/>
+                                    <GridViewColumn Header="Private Key" Width="100" DisplayMemberBinding="{Binding PrivateKey}"/>
+                                    -->
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <StatusBar Grid.Row="3" Height="24" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="auto">
+            <StatusBarItem>
+                <TextBlock Name="BoardUpdateProgress"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
