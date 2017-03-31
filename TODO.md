@@ -9,7 +9,7 @@
 - [ ] Message blocking  
 - [ ] Support encrypting database  
 - [ ] Store seen boards  
-- [ ] Sorting in messages  
+- [ ] Save message list column layout and sorting per board
 - [ ] Remember UI dimensions  
 
 ##### Fix UI issues

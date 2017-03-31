@@ -48,22 +48,22 @@
                     <RowDefinition Height="5" />
                     <RowDefinition Height="*" MinHeight="100"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" x:Name="MessageList" SelectionChanged="MessageList_SelectionChanged" >
+                <ListView Grid.Row="0" x:Name="MessageList" SelectionChanged="MessageList_SelectionChanged">
                     <ListView.View>
-                        <GridView>
+                        <GridView x:Name="MessageListGridView">
                             <GridViewColumn Width="400" DisplayMemberBinding="{Binding Subject}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Tag="Subject" Click="MessageListColumnHeader_Click">Subject</GridViewColumnHeader>
+                                    <GridViewColumnHeader Tag="Subject">Subject</GridViewColumnHeader>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn Width="300" DisplayMemberBinding="{Binding Sender}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Tag="Sender" Click="MessageListColumnHeader_Click">Sender</GridViewColumnHeader>
+                                    <GridViewColumnHeader Tag="Sender">Sender</GridViewColumnHeader>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn Width="150" DisplayMemberBinding="{Binding Date, Converter={StaticResource ZonedDateTimeConverter}}">
                                 <GridViewColumn.Header>
-                                    <GridViewColumnHeader Tag="Date" Click="MessageListColumnHeader_Click">Date</GridViewColumnHeader>
+                                    <GridViewColumnHeader Tag="Date">Date</GridViewColumnHeader>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                         </GridView>

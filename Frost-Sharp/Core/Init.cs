@@ -58,6 +58,12 @@ namespace Frost_Sharp.Core {
 		}
 
 		private void worker_InitCompleted(object sender, RunWorkerCompletedEventArgs e) {
+			// Set up Click handler for message list columns
+			// Can't use a static class in XAML for this
+			foreach (GridViewColumn column in MainWindow.GetInstance().MessageListGridView.Columns) {
+				(column.Header as GridViewColumnHeader).Click += GUI.MessageListSorter.ColumnHeader_Click;
+			}
+
 			// GridSplitter is ignoring the MinWidth of the column to the right of it...
 			MainWindow.GetInstance().MainFrame.SizeChanged += (_s, _e) => {
 				Grid g = _s as Grid;

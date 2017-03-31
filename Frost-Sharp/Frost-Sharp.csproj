@@ -67,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="Boards\BoardUpdater.cs" />
     <Compile Include="Boards\Types.cs" />
+    <Compile Include="GUI\MessageListSorter.cs" />
     <Compile Include="GUI\TreeContextMenu.cs" />
     <Compile Include="Core\Init.cs" />
     <Compile Include="Messages\Attachment.cs" />

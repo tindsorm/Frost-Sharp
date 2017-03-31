@@ -139,8 +139,5 @@ namespace Frost_Sharp {
 				MessageHeaderContainer.Visibility = Visibility.Collapsed;
 			}
 		}
-
-		private void MessageListColumnHeader_Click(object sender, RoutedEventArgs e) {
-		}
 	}
 }
