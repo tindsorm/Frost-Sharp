@@ -1,16 +1,16 @@
 # TODO
-[ ] Use `TPL` instead of `BackgroundWorker`  
-[ ] Validate messages properly  
-[ ] Fully parse messages  
-[ ] Store seen identities  
-[ ] Sender trust  
-[ ] Handle encrypted messages  
-[ ] Search  
-[ ] Message blocking  
-[ ] Support encrypting database  
-[ ] Store seen boards  
-[ ] Sorting in messages  
-[ ] Remember UI dimensions  
+- [ ] Use `TPL` instead of `BackgroundWorker`  
+- [ ] Validate messages properly  
+- [ ] Fully parse messages  
+- [ ] Store seen identities  
+- [ ] Sender trust  
+- [ ] Handle encrypted messages  
+- [ ] Search  
+- [ ] Message blocking  
+- [ ] Support encrypting database  
+- [ ] Store seen boards  
+- [ ] Sorting in messages  
+- [ ] Remember UI dimensions  
 
 ##### Fix UI issues
 * Attachment lists can be shrunk to below minimum height  
