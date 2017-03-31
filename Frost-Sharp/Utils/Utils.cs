@@ -51,5 +51,10 @@ namespace Frost_Sharp.Utils {
 			}
 			return string.Format("{0:0.##} {1}", bytes, suffixes[pos]);
 		}
+
+		static public string FormatDate(NodaTime.ZonedDateTime zdt) {
+			// TODO: Configurable date formatting
+			return zdt.ToString("yyyy.MM.dd HH:mm: ss x", null);
+		}
 	}
 }

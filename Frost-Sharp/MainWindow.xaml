@@ -14,6 +14,7 @@
         ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="Images/icon.ico">
     <Window.Resources>
         <local.Utils:BytesConverter x:Key="BytesConverter" />
+        <local.Utils:ZonedDateTimeConverter x:Key="ZonedDateTimeConverter" />
     </Window.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -50,9 +51,21 @@
                 <ListView Grid.Row="0" x:Name="MessageList" SelectionChanged="MessageList_SelectionChanged" >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Subject" Width="400" DisplayMemberBinding="{Binding Subject}"/>
-                            <GridViewColumn Header="Sender" Width="300" DisplayMemberBinding="{Binding Sender}"/>
-                            <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                            <GridViewColumn Width="400" DisplayMemberBinding="{Binding Subject}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Subject" Click="MessageListColumnHeader_Click">Subject</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="300" DisplayMemberBinding="{Binding Sender}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Sender" Click="MessageListColumnHeader_Click">Sender</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150" DisplayMemberBinding="{Binding Date, Converter={StaticResource ZonedDateTimeConverter}}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Date" Click="MessageListColumnHeader_Click">Date</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

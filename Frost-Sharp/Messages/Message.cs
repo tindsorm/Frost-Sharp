@@ -21,18 +21,14 @@ namespace Frost_Sharp.Messages {
 		public long Timestamp { get; set; }
 
 
-		[BsonIgnore] public string Date {
+		[BsonIgnore] public ZonedDateTime Date {
 			get {
-				return Instant.FromSecondsSinceUnixEpoch(Timestamp).InZone(DateTimeZoneProviders.Tzdb.GetSystemDefault()).ToString("yyyy.MM.dd HH:mm:ss x", null);
-				//return Instant.FromSecondsSinceUnixEpoch(Timestamp).InZone(NodaTime.TimeZones.BclDateTimeZone.ForSystemDefault()).ToString("yyyy.MM.dd HH:mm:ss x", null);
-				
-				//NodaTime.Instant time = InstantPattern.GeneralPattern.Parse(DateTime.ToString("yyyy-MM-dd'T'HH:mm:sszzzz")).Value;
-				//
-				//return time.InZone(zone).ToString("yyyy.MM.dd HH:mm:ss x",);
-
-				//return DateTime.ToString("yyyy.MM.dd HH:mm:ss x", null);
-
-				//return DateTime.WithZone(NodaTime.TimeZones.BclDateTimeZone.ForSystemDefault()).ToString("yyyy.MM.dd HH:mm:ss x", null);
+				// TODO: Setting to show times in local time or UTC
+				// if (Settings.showTimeUtc) {
+				return Instant.FromSecondsSinceUnixEpoch(Timestamp).InZone(DateTimeZoneProviders.Tzdb.GetSystemDefault());
+				// } else {
+				// return Instant.FromSecondsSinceUnixEpoch(Timestamp).InUtc();
+			//}
 			}
 		}
 	}

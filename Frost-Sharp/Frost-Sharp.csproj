@@ -75,6 +75,7 @@
     <Compile Include="GUI\Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ZonedDateTimeConverter.cs" />
     <Compile Include="Utils\BytesConverter.cs" />
     <Compile Include="Utils\Consts.cs" />
     <Compile Include="Utils\Log.cs" />
